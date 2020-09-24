@@ -21,12 +21,13 @@ const Results = (props) => {
   if (props.results.length === 0) {
     return (
       <div className="alert alert-warning" role="alert">
-        No results found
+        No results found. Try again with another search
       </div>
     );
   }
   return (
     <div>
+      <h2>{props.results.length} results found</h2>
       {props.results.map((r) => {
         return <Result data={r} key={r.id} />;
       })}

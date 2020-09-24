@@ -91,7 +91,7 @@ class App extends React.Component {
         </div>
         <hr />
         <div className="row">
-          <div className="col-md-8">
+          <div className="col-md-4">
             <Map
               position={this.state.map.position}
               results={this.state.results}
@@ -100,7 +100,7 @@ class App extends React.Component {
             />
           </div>
 
-          <div className="col-md-4">
+          <div className="col-md-8">
             <Results
               results={this.state.results}
               loading={this.state.loading}

@@ -14,14 +14,9 @@ const SearchForm = (props) => {
           aria-describedby="searchQueryHelp"
           value={props.query}
           onChange={props.change}
+          placeholder="Example: Peak district"
         ></input>
-        <small id="searchQueryHelp" className="form-text text-muted">
-          Example: Peak District
-        </small>
       </div>
-      <button type="submit" className="btn btn-primary">
-        Submit
-      </button>
     </form>
   );
 };
