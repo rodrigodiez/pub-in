@@ -32,7 +32,7 @@ const Results = (props) => {
   }
   return (
     <div>
-      <h2>{props.results.length} results found</h2>
+      <h4>{props.results.length} results found</h4>
       {props.results.map((r) => {
         return <StyledResult data={r} key={r.id} />;
       })}

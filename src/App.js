@@ -7,6 +7,7 @@ import "leaflet/dist/leaflet.js";
 
 class App extends React.Component {
   state = {
+    initialised: false,
     loading: false,
     error: null,
     query: "",
@@ -24,6 +25,9 @@ class App extends React.Component {
 
   handleSearchSubmit = async (e) => {
     e.preventDefault();
+
+    this.setState({ initialised: true });
+
     const res = await axios.get(
       `https://nominatim.openstreetmap.org/search?q=${this.state.query}&format=json&email=rodrigo@rodrigodiez.io`
     );
@@ -78,18 +82,10 @@ class App extends React.Component {
   };
 
   render() {
-    return (
-      <div className="container">
-        <div className="row">
-          <div className="col-md-12">
-            <SearchForm
-              query={this.state.query}
-              change={this.handleSearchQueryChange}
-              submit={this.handleSearchSubmit}
-            />
-          </div>
-        </div>
-        <hr />
+    let results = null;
+
+    if (this.state.initialised) {
+      results = (
         <div className="row">
           <div className="col-md-4">
             <Map
@@ -107,6 +103,30 @@ class App extends React.Component {
             />
           </div>
         </div>
+      );
+    }
+
+    let containerClasses = ["container", "h-100"];
+    if (!this.state.initialised) {
+      containerClasses.push(
+        "d-flex",
+        "align-items-center",
+        "justify-content-center"
+      );
+    }
+
+    return (
+      <div className={containerClasses.join(" ")}>
+        <div className="row">
+          <div className="col-md-12">
+            <SearchForm
+              query={this.state.query}
+              change={this.handleSearchQueryChange}
+              submit={this.handleSearchSubmit}
+            />
+          </div>
+        </div>
+        {results}
       </div>
     );
   }

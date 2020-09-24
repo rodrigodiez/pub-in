@@ -4,7 +4,15 @@ const Result = (props) => {
   return (
     <div className={`card ${props.className}`}>
       <div className="card-body">
-        <div className="card-title">{props.data.tags.name}</div>
+        <h5 className="card-title">{props.data.tags.name}</h5>
+        {props.data.tags["addr:postcode"] && props.data.tags["addr:street"] && (
+          <p className="card-text">
+            {props.data.tags["addr:housenumber"]}{" "}
+            {props.data.tags["addr:street"]}
+            {", "}
+            {props.data.tags["addr:postcode"]}
+          </p>
+        )}
         <ul className="list-group list-group-flush">
           {props.data.tags.website && (
             <li className="list-group-item text-truncate">
