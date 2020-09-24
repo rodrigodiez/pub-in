@@ -8,9 +8,20 @@ const Result = (props) => {
         <ul className="list-group list-group-flush">
           {props.data.tags.website && (
             <li className="list-group-item text-truncate">
+              <i className="fa fa-link mr-1"></i>
               <a className="card-link" href={props.data.tags.website}>
-                <i className="fa fa-code"></i>
+                <small>Website</small>
               </a>
+            </li>
+          )}
+          {props.data.tags.phone && (
+            <li className="list-group-item text-truncate">
+              <i className="fa fa-phone mr-1"></i>
+              <small>
+                <a href={`tel: ${props.data.tags.phone}`}>
+                  {props.data.tags.phone}
+                </a>
+              </small>
             </li>
           )}
         </ul>
