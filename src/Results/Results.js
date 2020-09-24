@@ -1,5 +1,10 @@
 import React from "react";
 import Result from "./Result";
+import styled from "styled-components";
+
+const StyledResult = styled(Result)`
+  margin-bottom: 10px;
+`;
 
 const Results = (props) => {
   if (props.loading) {
@@ -29,7 +34,7 @@ const Results = (props) => {
     <div>
       <h2>{props.results.length} results found</h2>
       {props.results.map((r) => {
-        return <Result data={r} key={r.id} />;
+        return <StyledResult data={r} key={r.id} />;
       })}
     </div>
   );

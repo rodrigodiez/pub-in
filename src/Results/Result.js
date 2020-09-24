@@ -2,7 +2,7 @@ import React from "react";
 
 const Result = (props) => {
   return (
-    <div className="card">
+    <div className={`card ${props.className}`}>
       <div className="card-body">
         <div className="card-title">{props.data.tags.name}</div>
         <ul className="list-group list-group-flush">
