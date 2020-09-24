@@ -9,7 +9,7 @@ const Result = (props) => {
           {props.data.tags.website && (
             <li className="list-group-item text-truncate">
               <a className="card-link" href={props.data.tags.website}>
-                <i class="fa fa-code"></i>
+                <i className="fa fa-code"></i>
               </a>
             </li>
           )}

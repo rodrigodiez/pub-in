@@ -8,10 +8,7 @@ const Map = (props) => {
       center={[props.position.lat, props.position.lon]}
       zoom={props.zoom}
       bounds={props.position.bounds}
-      dragging="false"
-      doubleClickZoom="false"
-      touchZoom="false"
-      boxZoom="false"
+      onzoomend={props.change}
       onmoveend={props.change}
     >
       <TileLayer

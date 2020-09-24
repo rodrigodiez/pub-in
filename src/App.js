@@ -20,6 +20,8 @@ class App extends React.Component {
     },
   };
 
+  nodesTimeout = null;
+
   handleSearchSubmit = async (e) => {
     e.preventDefault();
     const res = await axios.get(
@@ -41,19 +43,34 @@ class App extends React.Component {
   };
 
   handleMapChange = async (e) => {
-    console.log(e);
-    const bounds = e.target.getBounds();
-    const boundsString = `${bounds._southWest.lat},${bounds._southWest.lng},${bounds._northEast.lat},${bounds._northEast.lng}`;
-    this.setState({ loading: true, error: null });
-
-    try {
-      const res = await axios.get(
-        `https://overpass-api.de/api/interpreter?data=[out:json];node(${boundsString})["amenity"~"bar|pub"]->.nPubs;node(${boundsString})["tourism"~"hotel|guest_house|hostel"]->.nHotels;node.nPubs.nHotels; out;`
-      );
-      this.setState({ loading: false, results: res.data.elements });
-    } catch (e) {
-      this.setState({ loading: false, error: true });
+    if (this.nodesTimeout) {
+      console.log("Debouncing timeout", this.nodesTimeout);
+      clearTimeout(this.nodesTimeout);
+      console.log("Debounced timeout", this.nodesTimeout);
     }
+
+    this.nodesTimeout = setTimeout(
+      async () => {
+        console.log(e);
+
+        const bounds = e.target.getBounds();
+        const boundsString = `${bounds._southWest.lat},${bounds._southWest.lng},${bounds._northEast.lat},${bounds._northEast.lng}`;
+        this.setState({ loading: true, error: null });
+
+        try {
+          const res = await axios.get(
+            `https://overpass-api.de/api/interpreter?data=[out:json];node(${boundsString})["amenity"~"bar|pub"]->.nPubs;node(${boundsString})["tourism"~"hotel|guest_house|hostel"]->.nHotels;node.nPubs.nHotels; out;`
+          );
+          this.setState({ loading: false, results: res.data.elements });
+        } catch (e) {
+          this.setState({ loading: false, error: true });
+        }
+      },
+      500,
+      e
+    );
+
+    console.log("Timeout scheduled", this.nodesTimeout);
   };
 
   handleSearchQueryChange = (e) => {
