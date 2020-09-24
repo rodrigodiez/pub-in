@@ -5,7 +5,8 @@ const SearchForm = (props) => {
     <form onSubmit={props.submit}>
       <div className="form-group">
         <label className="h1" htmlFor="searchQuery">
-          Where do you want to go?
+          <i className="fa fa-beer mr-1"></i>
+          <i className="fa fa-bed mr-1"></i>Where are you going?
         </label>
         <input
           type="text"
