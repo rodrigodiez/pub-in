@@ -58,14 +58,24 @@ class App extends React.Component {
         console.log(e);
 
         const bounds = e.target.getBounds();
-        const boundsString = `${bounds._southWest.lat},${bounds._southWest.lng},${bounds._northEast.lat},${bounds._northEast.lng}`;
+
+        const query = {
+          north_west: {
+            lat: bounds._northEast.lat,
+            lon: bounds._southWest.lng,
+          },
+          south_east: {
+            lat: bounds._southWest.lat,
+            lon: bounds._northEast.lng,
+          },
+        };
+
         this.setState({ loading: true, error: null });
 
         try {
-          const res = await axios.get(
-            `https://overpass-api.de/api/interpreter?data=[out:json];node(${boundsString})["amenity"~"bar|pub"]->.nPubs;node(${boundsString})["tourism"~"hotel|guest_house|hostel"]->.nHotels;node.nPubs.nHotels; out;`
-          );
-          this.setState({ loading: false, results: res.data.elements });
+          const res = await axios.post("/api", { data: query });
+          console.log(res.data);
+          this.setState({ loading: false, results: res.data.data });
         } catch (e) {
           this.setState({ loading: false, error: true });
         }
