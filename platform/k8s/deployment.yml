@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: lab
+  name: pub-in-web
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: lab
+      app: pub-in-web
   template:
     metadata:
       labels:
-        app: lab
+        app: pub-in-web
     spec:
       containers:
-        - name: lab
+        - name: nginx
           image: rodrigodiez/pub-in:${CIRCLE_SHA1}
           ports:
             - containerPort: 8080
