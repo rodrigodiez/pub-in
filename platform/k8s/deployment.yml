@@ -11,6 +11,11 @@ spec:
     metadata:
       labels:
         app: pub-in-web
+        app.kubernetes.io/name: pub-in-web
+        app.kubernetes.io/instance: pub-in-web
+        app.kubernetes.io/version: "${CIRCLE_SHA1}"
+        app.kubernetes.io/component: frontend
+        app.kubernetes.io/part-of: pub-in
     spec:
       containers:
         - name: nginx
